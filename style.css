@@ -1,0 +1,25 @@
+h1{
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input{
+    border-radius: 6px;
+}
+
+select{
+    border-radius: 6px;
+}
+
+label{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    padding-top: 100px;
+}
+
+table,th,td{
+    border: 1px solid;
+    padding: 10px;
+    border-collapse: collapse;
+}
