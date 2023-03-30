@@ -20,9 +20,9 @@
                 <p>
                     <label>Gender</label>
                     <select class="form-control" id="gender" style="width: 100%">
-                        <option value="3" disabled selected></option>
-                        <option value="0">Male</option>
-                        <option value="1">Female</option>
+                        <option value="0" disabled selected></option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
                     </select>
                     <span id="errGender" style="color: red;"></span>
                 </p>
@@ -51,5 +51,38 @@
             </div>
         </div>
     </div>
+    <script>
+        function validateForm()
+        {
+            var gender = document.getElementById('gender').value;
+            if (gender == 0){
+                document.getElementById("errGender").innerHTML = "Please select the gender";
+                return false;
+            }
+            else{
+                document.getElementById("errGender").innerHTML = "";
+            }
+
+            var age = document.getElementById('age').value;
+            if (age == 0){
+                document.getElementById("errAge").innerHTML = "Please select the Age";
+                return false;
+            }
+            else{
+                document.getElementById("errAge").innerHTML = "";
+            }
+            var comment = document.getElementById('comment').value;
+            var regxcomment = /^[A-Za-z0-9]+$/
+            if(comment){
+                var validcomment = comment.match(regxcomment);
+                if(!validcomment){
+                    document.getElementById("errComment").innerHTML = "Not a valid comment";
+                }
+            }
+            alert("Data submitted successfully");
+        }
+
+    </script>
+
 </body>
 </html>
