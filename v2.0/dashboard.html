@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <br>
+        <h1>Admin Dashboard</h1>
+        <br>
+        <div class="row">
+            <div class="col-3">
+
+                <div class="card" style="background-color: #f25e0e; height: 130px;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: white;">Visitors For The Day</h3>
+                        <br>
+                        <h5 class="card-title" style="color: white;">50</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-3">
+
+                <div class="card" style="background-color: #213454; height: 130px;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: white;">Total Visitors</h3>
+                        <br>
+                        <h5 class="card-title" style="color: white;">50</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-3">
+
+                <div class="card" style="background-color: #415a77; height: 130px;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: white;">Male Visitors</h3>
+                        <br>
+                        <h5 class="card-title" style="color: white;">50</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-3">
+
+                <div class="card" style="background-color: #778da9; height: 130px;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: white;">Female Visitors</h3>
+                        <br>
+                        <h5 class="card-title" style="color: white;">50</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Sl no.</th>
+                        <th>Age Group</th>
+                        <th>Visitor(Day)</th>
+                        <th>Overall Visitors</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>5-10(Kid-Male)</td>
+                        <td>5</td>
+                        <td>500</td>
+                      </tr>
+                      <tr>
+                          <td>2</td>
+                          <td>5-10(Kid-Female)</td>
+                          <td>5</td>
+                          <td>500</td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>11-19(Teen-Male)</td>
+                          <td>5</td>
+                          <td>500</td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <td>11-19(Teen-Female)</td>
+                          <td>5</td>
+                          <td>500</td>
+                        </tr>
+                        <tr>
+                          <td>5</td>
+                          <td>20-29(Youngster-Male)</td>
+                          <td>5</td>
+                          <td>500</td>
+                        </tr>
+                        <tr>
+                          <td>6</td>
+                          <td>20-29(Youngster-Female)</td>
+                          <td>5</td>
+                          <td>500</td>
+                        </tr>
+                        <tr>
+                          <td>7</td>
+                          <td>30-59(Adult-Male)</td>
+                          <td>5</td>
+                          <td>500</td>
+                        </tr>
+                        <tr>
+                          <td>8</td>
+                          <td>30-59(Adult-Female)</td>
+                          <td>5</td>
+                          <td>500</td>
+                        </tr>
+                        <tr>
+                          <td>9</td>
+                          <td>60-100(Senior Citizen-Male)</td>
+                          <td>5</td>
+                          <td>500</td>
+                        </tr>
+                        <tr>
+                          <td>10</td>
+                          <td>60-100(Senior Citizen-Female)</td>
+                          <td>5</td>
+                          <td>500</td>
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="col-6">
+                <br>
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadDashboardData()
+        {
+            var xhttp=new XMLHttpRequest();
+            xhttp.onreadystatechange=function()
+            {
+                if(this.readyState==4 && this,status==200)
+                {
+                    var jsonData=JSON.parse(this.responseText)
+                    var todayVisitorsData=jsonData[0].today_visitors
+                    document.getElementById("VisitorsDay").innerHTML=todayVisitorsData
+                }
+            };
+            xhttp.open("GET","http://localhost:5000/today-visitors",true);
+            xhttp.send();
+            var xhttpTotalVisitors= new XMLHttpRequest();
+            xhttpTotalVisitors.onreadstatechange=function(){
+                if(this.readyState==4 && this.status==200)
+                {
+                    var jsonData=JSON.parse(this.responseText)
+                    var todayVisitorsData=jsonData[0].overall_visitors
+                    document.getElementById("totalVisitors").innerHTML=todayVisitorsData
+                }
+            };
+            xhttpTotalVisitors.open("GET","http://localhost:5000/overall-visitors",true);
+            xhttpTotalVisitors.send();
+            var xhttpMaleVisitors=new XMLHttpRequest();
+            xhttpMaleVisitors.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200)
+                {
+                    var jsonData=JSON.parse(this.responseText)
+                    var maleVisitorsData=josnData[0].male_visitors
+                    document.getElementById("maleVisitors").innerHTML=maleVisitorsData
+                }
+            };
+            xhttpMaleVisitors.open("GET","http://localhost:5000/male-visitors",true)
+            xhttpMaleVisitors.send();
+
+            var xhttpFemaleVisitors=new XMLHttpRequest();
+            xhhtpFemaleVisitors.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200)
+                {
+                    var josnData=JSON.parse(this.responseText)
+                    var femaleVisitorsData=josnData[0].female_visitors
+                    document.getElementById("femaleVisitors").innerHTML=femaleVisitorsData
+                }
+            };
+            xhttpFemaleVisitors.open("GET","http://localhost:5000/male-visitors",true)
+            xhttpFemaleVisitors.send();
+
+            var xhttpDashboard=new XMLHttpRequest();
+            xhhtpDashboard.onreadstatechange=function(){
+                if(this.readyState==4 && this.status==200)
+                {
+                    var josnData=JSON.parse(this.responseText)
+                    var josnDataLength=jsonData.length;
+                    var tableData='';
+                    var sl=0;
+                    for(var i=0;i<josnDataLength;i++)
+                    {
+                        sl++;
+                        tableData+='<tr>';
+                            tableData+='<td>'+sl+'</td>';
+                            tableData+='<td>'+jsonData[i].gender+'-'+jsonData[i].age+'</td>'
+
+                    }
+                }
+            }
+
+            
+
+        
+        const labels= ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+        const data= {
+            labels:labels,
+            datasets: [{
+                label: 'My First Dataset',
+                data:[65,59,80,81,56,55,40],
+                backgroundColor:[
+                    'rgba(225,99,132,0.2)',
+                    'rgba(225,159,64,0.2)',
+                    'rgba(225,205,86,0.2)',
+                    'rgba(75,192,192,0.2)',
+                    'rgba(54,162,235,0.2)',
+                    'rgba(153,102,255,0.2)',
+                    'rgba(201,,203,,2070.2)',
+                ],
+                borderColor:[
+                    'rgba(225,99,132)',
+                    'rgba(225,159,64)',
+                    'rgba(225,205,86)',
+                    'rgba(75,192,192)',
+                    'rgba(54,162,235)',
+                    'rgba(153,102,255)',
+                    'rgba(201,203,207)',
+                ],
+                borderWidth: 1
+            }]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y:{
+                        beginAtZero: true
+                    }
+                }
+            },
+        };
+        const myChart= new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    }
+};
+        xhttpBarChart.opn("GET","http://localhost:5000/abrgraph",true);
+        xhhtpBarChart.send();
+    }
+    </script>
+</body>
+</html>
